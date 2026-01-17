@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fleet Associate Demo | Rider Payments QA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="dot"></div>
+      <div>
+        <h1>Rider Payments QA and Follow Up Demo</h1>
+        <p class="sub">A small, practical tool showing how I think about accuracy, operations, and rider support</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="loadSample" class="btn">Load sample data</button>
+      <label class="btn ghost">
+        Upload CSV
+        <input id="fileInput" type="file" accept=".csv" />
+      </label>
+      <button id="runChecks" class="btn primary" disabled>Run checks</button>
+      <button id="exportCsv" class="btn" disabled>Export cleaned CSV</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Summary</h2>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpiLabel">Riders</div>
+          <div class="kpiValue" id="kpiRiders">0</div>
+        </div>
+        <div class="kpi">
+          <div class="kpiLabel">Rows</div>
+          <div class="kpiValue" id="kpiRows">0</div>
+        </div>
+        <div class="kpi">
+          <div class="kpiLabel">Flagged rows</div>
+          <div class="kpiValue" id="kpiFlags">0</div>
+        </div>
+        <div class="kpi">
+          <div class="kpiLabel">Estimated payout</div>
+          <div class="kpiValue" id="kpiPayout">0</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>What this checks</strong>
+        <ul>
+          <li>Missing or invalid hours, rate, or rider id</li>
+          <li>Duplicate entries for the same rider and day</li>
+          <li>Outlier hours that may indicate mistakes</li>
+          <li>Missing bank details marker</li>
+          <li>Creates a follow up list with clear actions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Follow ups</h2>
+      <p class="muted">Action oriented list for rider support and scheduling follow up</p>
+      <div id="followups" class="followups empty">Load data to see follow ups</div>
+    </section>
+
+    <section class="card span2">
+      <div class="tableHead">
+        <div>
+          <h2>Payments table</h2>
+          <p class="muted">Click a row to see why it was flagged</p>
+        </div>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="tableWrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Rider</th>
+              <th>Date</th>
+              <th>Hours</th>
+              <th>Hourly rate</th>
+              <th>Base pay</th>
+              <th>Bonus</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="detail" class="detail empty">
+        Select a row to see details
+      </div>
+    </section>
+
+    <section class="card span2">
+      <h2>How to use</h2>
+      <ol class="howto">
+        <li>Click Load sample data or upload your own CSV</li>
+        <li>Click Run checks to compute payouts and detect issues</li>
+        <li>Review Follow ups and flagged rows</li>
+        <li>Export cleaned CSV for downstream processing</li>
+      </ol>
+
+      <div class="note">
+        <strong>CSV format</strong>
+        <div class="code">
+rider_id,rider_name,work_date,hours_worked,hourly_rate,bonus,bank_details_ok,notes
+        </div>
+        <p class="muted">Bank details ok should be TRUE or FALSE</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Built for the Fleet Associate role. Focus on accuracy, operations, and rider support.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
